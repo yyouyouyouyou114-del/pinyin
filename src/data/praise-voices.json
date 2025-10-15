@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "totalPhrases": 40,
+    "categories": ["basic", "combo", "perfect"],
+    "ttsProvider": "Microsoft Azure TTS",
+    "voiceModel": "zh-CN-XiaoxiaoNeural (童声女声)",
+    "createdAt": "2025-10-10"
+  },
+  "praiseVoices": {
+    "basic": {
+      "description": "单题答对时随机播放",
+      "playCondition": "每次答对一题",
+      "phrases": [
+        { "id": 1, "text": "真棒！", "duration": "1s" },
+        { "id": 2, "text": "答对了！", "duration": "1s" },
+        { "id": 3, "text": "太厉害了！", "duration": "1.5s" },
+        { "id": 4, "text": "你好聪明！", "duration": "1.5s" },
+        { "id": 5, "text": "好厉害呀！", "duration": "1.5s" },
+        { "id": 6, "text": "太棒了！", "duration": "1s" },
+        { "id": 7, "text": "很好！", "duration": "1s" },
+        { "id": 8, "text": "真不错！", "duration": "1s" },
+        { "id": 9, "text": "做得好！", "duration": "1s" },
+        { "id": 10, "text": "你真行！", "duration": "1s" },
+        { "id": 11, "text": "太聪明了！", "duration": "1.5s" },
+        { "id": 12, "text": "真了不起！", "duration": "1.5s" },
+        { "id": 13, "text": "好样的！", "duration": "1s" },
+        { "id": 14, "text": "你太棒了！", "duration": "1.5s" },
+        { "id": 15, "text": "真优秀！", "duration": "1s" },
+        { "id": 16, "text": "完全正确！", "duration": "1.5s" },
+        { "id": 17, "text": "太对了！", "duration": "1s" },
+        { "id": 18, "text": "好极了！", "duration": "1s" },
+        { "id": 19, "text": "你好厉害！", "duration": "1.5s" },
+        { "id": 20, "text": "真是太棒了！", "duration": "2s" }
+      ]
+    },
+    "combo": {
+      "description": "连续答对3题及以上时播放",
+      "playCondition": "连续答对≥3题",
+      "phrases": [
+        { "id": 21, "text": "连续答对，真棒！", "duration": "2s" },
+        { "id": 22, "text": "哇！连对三题了！", "duration": "2s" },
+        { "id": 23, "text": "你简直是天才！", "duration": "2s" },
+        { "id": 24, "text": "无人能挡！", "duration": "1.5s" },
+        { "id": 25, "text": "太厉害了！连胜中！", "duration": "2.5s" },
+        { "id": 26, "text": "继续保持，你最棒！", "duration": "2.5s" },
+        { "id": 27, "text": "哇！你太强了！", "duration": "2s" },
+        { "id": 28, "text": "连续正确！真了不起！", "duration": "2.5s" },
+        { "id": 29, "text": "你真是学习高手！", "duration": "2s" },
+        { "id": 30, "text": "完美连胜！加油！", "duration": "2.5s" }
+      ]
+    },
+    "perfect": {
+      "description": "满分通关时播放",
+      "playCondition": "10题全对，100分",
+      "phrases": [
+        { "id": 31, "text": "哇！满分！你太优秀了！", "duration": "3s" },
+        { "id": 32, "text": "完美通关！你是最棒的！", "duration": "3s" },
+        { "id": 33, "text": "100分！真了不起！", "duration": "2.5s" },
+        { "id": 34, "text": "太厉害了！全部答对！", "duration": "2.5s" },
+        { "id": 35, "text": "你真是天才！满分通过！", "duration": "3s" },
+        { "id": 36, "text": "完美！没有一个错误！", "duration": "2.5s" },
+        { "id": 37, "text": "太棒了！你是学习小明星！", "duration": "3s" },
+        { "id": 38, "text": "满分通关！爸爸妈妈一定很骄傲！", "duration": "3.5s" },
+        { "id": 39, "text": "你太优秀了！继续加油！", "duration": "3s" },
+        { "id": 40, "text": "哇！所有题目都答对了！你真厉害！", "duration": "3.5s" }
+      ]
+    },
+    "encouragement": {
+      "description": "答错时温和鼓励",
+      "playCondition": "答错题目时",
+      "phrases": [
+        { "id": 41, "text": "没关系，再想一想", "duration": "2s" },
+        { "id": 42, "text": "加油，你可以的！", "duration": "2s" },
+        { "id": 43, "text": "不要紧，继续努力！", "duration": "2s" },
+        { "id": 44, "text": "这次没关系，下次会更好！", "duration": "2.5s" },
+        { "id": 45, "text": "别灰心，你很棒了！", "duration": "2s" }
+      ]
+    }
+  },
+  "soundEffects": {
+    "description": "游戏音效列表",
+    "effects": [
+      { "name": "correct", "description": "答对提示音", "type": "叮咚声（愉快）", "duration": "0.5s" },
+      { "name": "wrong", "description": "答错提示音", "type": "咚声（温和）", "duration": "0.5s" },
+      { "name": "button", "description": "按钮点击音", "type": "轻快点击声", "duration": "0.3s" },
+      { "name": "car-start", "description": "赛车启动音", "type": "引擎声（卡通）", "duration": "1s" },
+      { "name": "car-pass", "description": "赛车通过音", "type": "嗖声", "duration": "0.5s" },
+      { "name": "celebration", "description": "庆祝音效", "type": "欢呼+礼花声", "duration": "3s" },
+      { "name": "unlock", "description": "关卡解锁音", "type": "解锁提示音", "duration": "1s" }
+    ]
+  },
+  "backgroundMusic": {
+    "description": "背景音乐列表",
+    "tracks": [
+      {
+        "name": "main-theme",
+        "description": "主界面音乐",
+        "style": "轻快活泼的赛车主题",
+        "tempo": "中速（120 BPM）",
+        "loop": true
+      },
+      {
+        "name": "learning-mode",
+        "description": "学习模式音乐",
+        "style": "轻松愉快的旋律",
+        "tempo": "慢速（100 BPM）",
+        "loop": true
+      },
+      {
+        "name": "exam-mode",
+        "description": "考试模式音乐",
+        "style": "充满活力的节奏",
+        "tempo": "中快速（130 BPM）",
+        "loop": true
+      }
+    ]
+  },
+  "ttsSettings": {
+    "provider": "Microsoft Azure Cognitive Services",
+    "endpoint": "https://api.cognitive.microsoft.com/sts/v1.0/issuetoken",
+    "voiceConfig": {
+      "language": "zh-CN",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "style": "cheerful",
+      "rate": "0.9",
+      "pitch": "+5%"
+    },
+    "outputFormat": "audio-24khz-96kbitrate-mono-mp3",
+    "estimatedCost": {
+      "perCharacter": "$0.000016",
+      "total250Characters": "$0.004",
+      "total40Phrases": "$0.010",
+      "totalEstimate": "$0.014"
+    }
+  },
+  "generationNotes": {
+    "batchGeneration": "建议使用批量生成脚本一次性生成所有音频",
+    "namingConvention": "praise_basic_01.mp3, praise_combo_01.mp3, praise_perfect_01.mp3",
+    "storageLocation": "public/audio/praise/",
+    "preloadStrategy": "在应用启动时预加载所有表扬语音"
+  }
+}
+

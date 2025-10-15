@@ -1,0 +1,498 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "totalCharacters": 250,
+    "totalStages": 25,
+    "levels": 5,
+    "source": "义务教育语文课程常用字表",
+    "createdAt": "2025-10-10"
+  },
+  "levels": [
+    {
+      "level": 1,
+      "name": "L1级",
+      "strokeRange": "1-2画",
+      "stages": [
+        {
+          "stageId": 1,
+          "level": 1,
+          "stageInLevel": 1,
+          "name": "第1关",
+          "characters": [
+            { "id": 1, "char": "一", "pinyin": "yī", "strokes": 1, "icon": "number-1", "category": "数字" },
+            { "id": 2, "char": "二", "pinyin": "èr", "strokes": 2, "icon": "number-2", "category": "数字" },
+            { "id": 3, "char": "十", "pinyin": "shí", "strokes": 2, "icon": "number-10", "category": "数字" },
+            { "id": 4, "char": "人", "pinyin": "rén", "strokes": 2, "icon": "person", "category": "人物" },
+            { "id": 5, "char": "入", "pinyin": "rù", "strokes": 2, "icon": "enter", "category": "动作" },
+            { "id": 6, "char": "八", "pinyin": "bā", "strokes": 2, "icon": "number-8", "category": "数字" },
+            { "id": 7, "char": "九", "pinyin": "jiǔ", "strokes": 2, "icon": "number-9", "category": "数字" },
+            { "id": 8, "char": "几", "pinyin": "jǐ", "strokes": 2, "icon": "table", "category": "物品" },
+            { "id": 9, "char": "刀", "pinyin": "dāo", "strokes": 2, "icon": "knife", "category": "工具" },
+            { "id": 10, "char": "力", "pinyin": "lì", "strokes": 2, "icon": "muscle", "category": "抽象" }
+          ]
+        },
+        {
+          "stageId": 2,
+          "level": 1,
+          "stageInLevel": 2,
+          "name": "第2关",
+          "characters": [
+            { "id": 11, "char": "又", "pinyin": "yòu", "strokes": 2, "icon": "hand", "category": "动作" },
+            { "id": 12, "char": "三", "pinyin": "sān", "strokes": 3, "icon": "number-3", "category": "数字" },
+            { "id": 13, "char": "上", "pinyin": "shàng", "strokes": 3, "icon": "arrow-up", "category": "方位" },
+            { "id": 14, "char": "下", "pinyin": "xià", "strokes": 3, "icon": "arrow-down", "category": "方位" },
+            { "id": 15, "char": "土", "pinyin": "tǔ", "strokes": 3, "icon": "soil", "category": "自然" },
+            { "id": 16, "char": "大", "pinyin": "dà", "strokes": 3, "icon": "big", "category": "形容词" },
+            { "id": 17, "char": "小", "pinyin": "xiǎo", "strokes": 3, "icon": "small", "category": "形容词" },
+            { "id": 18, "char": "口", "pinyin": "kǒu", "strokes": 3, "icon": "mouth", "category": "身体" },
+            { "id": 19, "char": "山", "pinyin": "shān", "strokes": 3, "icon": "mountain", "category": "自然" },
+            { "id": 20, "char": "千", "pinyin": "qiān", "strokes": 3, "icon": "number-1000", "category": "数字" }
+          ]
+        },
+        {
+          "stageId": 3,
+          "level": 1,
+          "stageInLevel": 3,
+          "name": "第3关",
+          "characters": [
+            { "id": 21, "char": "才", "pinyin": "cái", "strokes": 3, "icon": "talent", "category": "抽象" },
+            { "id": 22, "char": "寸", "pinyin": "cùn", "strokes": 3, "icon": "ruler", "category": "度量" },
+            { "id": 23, "char": "万", "pinyin": "wàn", "strokes": 3, "icon": "ten-thousand", "category": "数字" },
+            { "id": 24, "char": "干", "pinyin": "gàn", "strokes": 3, "icon": "work", "category": "动作" },
+            { "id": 25, "char": "工", "pinyin": "gōng", "strokes": 3, "icon": "worker", "category": "职业" },
+            { "id": 26, "char": "己", "pinyin": "jǐ", "strokes": 3, "icon": "self", "category": "代词" },
+            { "id": 27, "char": "已", "pinyin": "yǐ", "strokes": 3, "icon": "already", "category": "时间" },
+            { "id": 28, "char": "巾", "pinyin": "jīn", "strokes": 3, "icon": "towel", "category": "物品" },
+            { "id": 29, "char": "弓", "pinyin": "gōng", "strokes": 3, "icon": "bow", "category": "工具" },
+            { "id": 30, "char": "广", "pinyin": "guǎng", "strokes": 3, "icon": "wide", "category": "形容词" }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "name": "L2级",
+      "strokeRange": "3-4画",
+      "stages": [
+        {
+          "stageId": 4,
+          "level": 2,
+          "stageInLevel": 1,
+          "name": "第4关",
+          "characters": [
+            { "id": 31, "char": "火", "pinyin": "huǒ", "strokes": 4, "icon": "fire", "category": "自然" },
+            { "id": 32, "char": "水", "pinyin": "shuǐ", "strokes": 4, "icon": "water", "category": "自然" },
+            { "id": 33, "char": "木", "pinyin": "mù", "strokes": 4, "icon": "tree", "category": "自然" },
+            { "id": 34, "char": "日", "pinyin": "rì", "strokes": 4, "icon": "sun", "category": "自然" },
+            { "id": 35, "char": "月", "pinyin": "yuè", "strokes": 4, "icon": "moon", "category": "自然" },
+            { "id": 36, "char": "天", "pinyin": "tiān", "strokes": 4, "icon": "sky", "category": "自然" },
+            { "id": 37, "char": "手", "pinyin": "shǒu", "strokes": 4, "icon": "hand", "category": "身体" },
+            { "id": 38, "char": "心", "pinyin": "xīn", "strokes": 4, "icon": "heart", "category": "身体" },
+            { "id": 39, "char": "牛", "pinyin": "niú", "strokes": 4, "icon": "cow", "category": "动物" },
+            { "id": 40, "char": "毛", "pinyin": "máo", "strokes": 4, "icon": "fur", "category": "物品" }
+          ]
+        },
+        {
+          "stageId": 5,
+          "level": 2,
+          "stageInLevel": 2,
+          "name": "第5关",
+          "characters": [
+            { "id": 41, "char": "长", "pinyin": "cháng", "strokes": 4, "icon": "long", "category": "形容词" },
+            { "id": 42, "char": "风", "pinyin": "fēng", "strokes": 4, "icon": "wind", "category": "自然" },
+            { "id": 43, "char": "车", "pinyin": "chē", "strokes": 4, "icon": "car", "category": "交通" },
+            { "id": 44, "char": "文", "pinyin": "wén", "strokes": 4, "icon": "book", "category": "文化" },
+            { "id": 45, "char": "方", "pinyin": "fāng", "strokes": 4, "icon": "square", "category": "形状" },
+            { "id": 46, "char": "片", "pinyin": "piàn", "strokes": 4, "icon": "slice", "category": "形状" },
+            { "id": 47, "char": "牙", "pinyin": "yá", "strokes": 4, "icon": "tooth", "category": "身体" },
+            { "id": 48, "char": "不", "pinyin": "bù", "strokes": 4, "icon": "no", "category": "否定" },
+            { "id": 49, "char": "中", "pinyin": "zhōng", "strokes": 4, "icon": "center", "category": "方位" },
+            { "id": 50, "char": "五", "pinyin": "wǔ", "strokes": 4, "icon": "number-5", "category": "数字" }
+          ]
+        },
+        {
+          "stageId": 6,
+          "level": 2,
+          "stageInLevel": 3,
+          "name": "第6关",
+          "characters": [
+            { "id": 51, "char": "六", "pinyin": "liù", "strokes": 4, "icon": "number-6", "category": "数字" },
+            { "id": 52, "char": "今", "pinyin": "jīn", "strokes": 4, "icon": "today", "category": "时间" },
+            { "id": 53, "char": "分", "pinyin": "fēn", "strokes": 4, "icon": "divide", "category": "动作" },
+            { "id": 54, "char": "公", "pinyin": "gōng", "strokes": 4, "icon": "public", "category": "社会" },
+            { "id": 55, "char": "化", "pinyin": "huà", "strokes": 4, "icon": "change", "category": "动作" },
+            { "id": 56, "char": "比", "pinyin": "bǐ", "strokes": 4, "icon": "compare", "category": "动作" },
+            { "id": 57, "char": "开", "pinyin": "kāi", "strokes": 4, "icon": "open", "category": "动作" },
+            { "id": 58, "char": "见", "pinyin": "jiàn", "strokes": 4, "icon": "see", "category": "动作" },
+            { "id": 59, "char": "元", "pinyin": "yuán", "strokes": 4, "icon": "yuan", "category": "货币" },
+            { "id": 60, "char": "无", "pinyin": "wú", "strokes": 4, "icon": "none", "category": "否定" }
+          ]
+        },
+        {
+          "stageId": 7,
+          "level": 2,
+          "stageInLevel": 4,
+          "name": "第7关",
+          "characters": [
+            { "id": 61, "char": "云", "pinyin": "yún", "strokes": 4, "icon": "cloud", "category": "自然" },
+            { "id": 62, "char": "天", "pinyin": "tiān", "strokes": 4, "icon": "sky", "category": "自然" },
+            { "id": 63, "char": "太", "pinyin": "tài", "strokes": 4, "icon": "too", "category": "程度" },
+            { "id": 64, "char": "井", "pinyin": "jǐng", "strokes": 4, "icon": "well", "category": "建筑" },
+            { "id": 65, "char": "王", "pinyin": "wáng", "strokes": 4, "icon": "king", "category": "人物" },
+            { "id": 66, "char": "气", "pinyin": "qì", "strokes": 4, "icon": "air", "category": "自然" },
+            { "id": 67, "char": "少", "pinyin": "shǎo", "strokes": 4, "icon": "few", "category": "数量" },
+            { "id": 68, "char": "从", "pinyin": "cóng", "strokes": 4, "icon": "from", "category": "介词" },
+            { "id": 69, "char": "内", "pinyin": "nèi", "strokes": 4, "icon": "inside", "category": "方位" },
+            { "id": 70, "char": "为", "pinyin": "wéi", "strokes": 4, "icon": "for", "category": "介词" }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "name": "L3级",
+      "strokeRange": "5-6画",
+      "stages": [
+        {
+          "stageId": 8,
+          "level": 3,
+          "stageInLevel": 1,
+          "name": "第8关",
+          "characters": [
+            { "id": 71, "char": "田", "pinyin": "tián", "strokes": 5, "icon": "field", "category": "农业" },
+            { "id": 72, "char": "目", "pinyin": "mù", "strokes": 5, "icon": "eye", "category": "身体" },
+            { "id": 73, "char": "耳", "pinyin": "ěr", "strokes": 6, "icon": "ear", "category": "身体" },
+            { "id": 74, "char": "石", "pinyin": "shí", "strokes": 5, "icon": "stone", "category": "自然" },
+            { "id": 75, "char": "禾", "pinyin": "hé", "strokes": 5, "icon": "grain", "category": "植物" },
+            { "id": 76, "char": "米", "pinyin": "mǐ", "strokes": 6, "icon": "rice", "category": "食物" },
+            { "id": 77, "char": "白", "pinyin": "bái", "strokes": 5, "icon": "white", "category": "颜色" },
+            { "id": 78, "char": "皮", "pinyin": "pí", "strokes": 5, "icon": "skin", "category": "身体" },
+            { "id": 79, "char": "鸟", "pinyin": "niǎo", "strokes": 5, "icon": "bird", "category": "动物" },
+            { "id": 80, "char": "生", "pinyin": "shēng", "strokes": 5, "icon": "life", "category": "动作" }
+          ]
+        },
+        {
+          "stageId": 9,
+          "level": 3,
+          "stageInLevel": 2,
+          "name": "第9关",
+          "characters": [
+            { "id": 81, "char": "东", "pinyin": "dōng", "strokes": 5, "icon": "east", "category": "方位" },
+            { "id": 82, "char": "西", "pinyin": "xī", "strokes": 6, "icon": "west", "category": "方位" },
+            { "id": 83, "char": "南", "pinyin": "nán", "strokes": 9, "icon": "south", "category": "方位" },
+            { "id": 84, "char": "北", "pinyin": "běi", "strokes": 5, "icon": "north", "category": "方位" },
+            { "id": 85, "char": "左", "pinyin": "zuǒ", "strokes": 5, "icon": "left", "category": "方位" },
+            { "id": 86, "char": "右", "pinyin": "yòu", "strokes": 5, "icon": "right", "category": "方位" },
+            { "id": 87, "char": "出", "pinyin": "chū", "strokes": 5, "icon": "exit", "category": "动作" },
+            { "id": 88, "char": "去", "pinyin": "qù", "strokes": 5, "icon": "go", "category": "动作" },
+            { "id": 89, "char": "来", "pinyin": "lái", "strokes": 7, "icon": "come", "category": "动作" },
+            { "id": 90, "char": "半", "pinyin": "bàn", "strokes": 5, "icon": "half", "category": "数量" }
+          ]
+        },
+        {
+          "stageId": 10,
+          "level": 3,
+          "stageInLevel": 3,
+          "name": "第10关",
+          "characters": [
+            { "id": 91, "char": "本", "pinyin": "běn", "strokes": 5, "icon": "book", "category": "物品" },
+            { "id": 92, "char": "正", "pinyin": "zhèng", "strokes": 5, "icon": "correct", "category": "形容词" },
+            { "id": 93, "char": "平", "pinyin": "píng", "strokes": 5, "icon": "flat", "category": "形容词" },
+            { "id": 94, "char": "可", "pinyin": "kě", "strokes": 5, "icon": "can", "category": "动词" },
+            { "id": 95, "char": "电", "pinyin": "diàn", "strokes": 5, "icon": "electricity", "category": "能源" },
+            { "id": 96, "char": "叶", "pinyin": "yè", "strokes": 5, "icon": "leaf", "category": "植物" },
+            { "id": 97, "char": "号", "pinyin": "hào", "strokes": 5, "icon": "number", "category": "符号" },
+            { "id": 98, "char": "句", "pinyin": "jù", "strokes": 5, "icon": "sentence", "category": "语言" },
+            { "id": 99, "char": "只", "pinyin": "zhǐ", "strokes": 5, "icon": "only", "category": "量词" },
+            { "id": 100, "char": "四", "pinyin": "sì", "strokes": 5, "icon": "number-4", "category": "数字" }
+          ]
+        },
+        {
+          "stageId": 11,
+          "level": 3,
+          "stageInLevel": 4,
+          "name": "第11关",
+          "characters": [
+            { "id": 101, "char": "头", "pinyin": "tóu", "strokes": 5, "icon": "head", "category": "身体" },
+            { "id": 102, "char": "过", "pinyin": "guò", "strokes": 6, "icon": "pass", "category": "动作" },
+            { "id": 103, "char": "江", "pinyin": "jiāng", "strokes": 6, "icon": "river", "category": "自然" },
+            { "id": 104, "char": "红", "pinyin": "hóng", "strokes": 6, "icon": "red", "category": "颜色" },
+            { "id": 105, "char": "回", "pinyin": "huí", "strokes": 6, "icon": "return", "category": "动作" },
+            { "id": 106, "char": "在", "pinyin": "zài", "strokes": 6, "icon": "at", "category": "介词" },
+            { "id": 107, "char": "地", "pinyin": "dì", "strokes": 6, "icon": "earth", "category": "自然" },
+            { "id": 108, "char": "好", "pinyin": "hǎo", "strokes": 6, "icon": "good", "category": "形容词" },
+            { "id": 109, "char": "她", "pinyin": "tā", "strokes": 6, "icon": "she", "category": "代词" },
+            { "id": 110, "char": "有", "pinyin": "yǒu", "strokes": 6, "icon": "have", "category": "动词" }
+          ]
+        },
+        {
+          "stageId": 12,
+          "level": 3,
+          "stageInLevel": 5,
+          "name": "第12关",
+          "characters": [
+            { "id": 111, "char": "年", "pinyin": "nián", "strokes": 6, "icon": "year", "category": "时间" },
+            { "id": 112, "char": "会", "pinyin": "huì", "strokes": 6, "icon": "meeting", "category": "动作" },
+            { "id": 113, "char": "自", "pinyin": "zì", "strokes": 6, "icon": "self", "category": "代词" },
+            { "id": 114, "char": "多", "pinyin": "duō", "strokes": 6, "icon": "many", "category": "数量" },
+            { "id": 115, "char": "后", "pinyin": "hòu", "strokes": 6, "icon": "after", "category": "时间" },
+            { "id": 116, "char": "向", "pinyin": "xiàng", "strokes": 6, "icon": "toward", "category": "介词" },
+            { "id": 117, "char": "全", "pinyin": "quán", "strokes": 6, "icon": "all", "category": "数量" },
+            { "id": 118, "char": "竹", "pinyin": "zhú", "strokes": 6, "icon": "bamboo", "category": "植物" },
+            { "id": 119, "char": "羊", "pinyin": "yáng", "strokes": 6, "icon": "sheep", "category": "动物" },
+            { "id": 120, "char": "衣", "pinyin": "yī", "strokes": 6, "icon": "clothes", "category": "物品" }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "name": "L4级",
+      "strokeRange": "7-8画",
+      "stages": [
+        {
+          "stageId": 13,
+          "level": 4,
+          "stageInLevel": 1,
+          "name": "第13关",
+          "characters": [
+            { "id": 121, "char": "花", "pinyin": "huā", "strokes": 7, "icon": "flower", "category": "植物" },
+            { "id": 122, "char": "草", "pinyin": "cǎo", "strokes": 9, "icon": "grass", "category": "植物" },
+            { "id": 123, "char": "树", "pinyin": "shù", "strokes": 9, "icon": "tree", "category": "植物" },
+            { "id": 124, "char": "林", "pinyin": "lín", "strokes": 8, "icon": "forest", "category": "自然" },
+            { "id": 125, "char": "果", "pinyin": "guǒ", "strokes": 8, "icon": "fruit", "category": "食物" },
+            { "id": 126, "char": "瓜", "pinyin": "guā", "strokes": 5, "icon": "melon", "category": "食物" },
+            { "id": 127, "char": "豆", "pinyin": "dòu", "strokes": 7, "icon": "bean", "category": "食物" },
+            { "id": 128, "char": "走", "pinyin": "zǒu", "strokes": 7, "icon": "walk", "category": "动作" },
+            { "id": 129, "char": "足", "pinyin": "zú", "strokes": 7, "icon": "foot", "category": "身体" },
+            { "id": 130, "char": "身", "pinyin": "shēn", "strokes": 7, "icon": "body", "category": "身体" }
+          ]
+        },
+        {
+          "stageId": 14,
+          "level": 4,
+          "stageInLevel": 2,
+          "name": "第14关",
+          "characters": [
+            { "id": 131, "char": "男", "pinyin": "nán", "strokes": 7, "icon": "male", "category": "人物" },
+            { "id": 132, "char": "妈", "pinyin": "mā", "strokes": 6, "icon": "mom", "category": "家人" },
+            { "id": 133, "char": "爸", "pinyin": "bà", "strokes": 8, "icon": "dad", "category": "家人" },
+            { "id": 134, "char": "我", "pinyin": "wǒ", "strokes": 7, "icon": "me", "category": "代词" },
+            { "id": 135, "char": "你", "pinyin": "nǐ", "strokes": 7, "icon": "you", "category": "代词" },
+            { "id": 136, "char": "他", "pinyin": "tā", "strokes": 5, "icon": "he", "category": "代词" },
+            { "id": 137, "char": "们", "pinyin": "men", "strokes": 5, "icon": "plural", "category": "语法" },
+            { "id": 138, "char": "听", "pinyin": "tīng", "strokes": 7, "icon": "listen", "category": "动作" },
+            { "id": 139, "char": "说", "pinyin": "shuō", "strokes": 9, "icon": "speak", "category": "动作" },
+            { "id": 140, "char": "读", "pinyin": "dú", "strokes": 10, "icon": "read", "category": "动作" }
+          ]
+        },
+        {
+          "stageId": 15,
+          "level": 4,
+          "stageInLevel": 3,
+          "name": "第15关",
+          "characters": [
+            { "id": 141, "char": "鱼", "pinyin": "yú", "strokes": 8, "icon": "fish", "category": "动物" },
+            { "id": 142, "char": "虫", "pinyin": "chóng", "strokes": 6, "icon": "insect", "category": "动物" },
+            { "id": 143, "char": "兔", "pinyin": "tù", "strokes": 8, "icon": "rabbit", "category": "动物" },
+            { "id": 144, "char": "狗", "pinyin": "gǒu", "strokes": 8, "icon": "dog", "category": "动物" },
+            { "id": 145, "char": "猫", "pinyin": "māo", "strokes": 11, "icon": "cat", "category": "动物" },
+            { "id": 146, "char": "马", "pinyin": "mǎ", "strokes": 3, "icon": "horse", "category": "动物" },
+            { "id": 147, "char": "鸡", "pinyin": "jī", "strokes": 7, "icon": "chicken", "category": "动物" },
+            { "id": 148, "char": "鸭", "pinyin": "yā", "strokes": 10, "icon": "duck", "category": "动物" },
+            { "id": 149, "char": "猪", "pinyin": "zhū", "strokes": 11, "icon": "pig", "category": "动物" },
+            { "id": 150, "char": "蛋", "pinyin": "dàn", "strokes": 11, "icon": "egg", "category": "食物" }
+          ]
+        },
+        {
+          "stageId": 16,
+          "level": 4,
+          "stageInLevel": 4,
+          "name": "第16关",
+          "characters": [
+            { "id": 151, "char": "每", "pinyin": "měi", "strokes": 7, "icon": "each", "category": "量词" },
+            { "id": 152, "char": "时", "pinyin": "shí", "strokes": 7, "icon": "time", "category": "时间" },
+            { "id": 153, "char": "早", "pinyin": "zǎo", "strokes": 6, "icon": "morning", "category": "时间" },
+            { "id": 154, "char": "明", "pinyin": "míng", "strokes": 8, "icon": "bright", "category": "形容词" },
+            { "id": 155, "char": "星", "pinyin": "xīng", "strokes": 9, "icon": "star", "category": "自然" },
+            { "id": 156, "char": "春", "pinyin": "chūn", "strokes": 9, "icon": "spring", "category": "季节" },
+            { "id": 157, "char": "青", "pinyin": "qīng", "strokes": 8, "icon": "green", "category": "颜色" },
+            { "id": 158, "char": "雨", "pinyin": "yǔ", "strokes": 8, "icon": "rain", "category": "自然" },
+            { "id": 159, "char": "雪", "pinyin": "xuě", "strokes": 11, "icon": "snow", "category": "自然" },
+            { "id": 160, "char": "河", "pinyin": "hé", "strokes": 8, "icon": "river", "category": "自然" }
+          ]
+        },
+        {
+          "stageId": 17,
+          "level": 4,
+          "stageInLevel": 5,
+          "name": "第17关",
+          "characters": [
+            { "id": 161, "char": "作", "pinyin": "zuò", "strokes": 7, "icon": "work", "category": "动作" },
+            { "id": 162, "char": "住", "pinyin": "zhù", "strokes": 7, "icon": "live", "category": "动作" },
+            { "id": 163, "char": "坐", "pinyin": "zuò", "strokes": 7, "icon": "sit", "category": "动作" },
+            { "id": 164, "char": "站", "pinyin": "zhàn", "strokes": 10, "icon": "stand", "category": "动作" },
+            { "id": 165, "char": "把", "pinyin": "bǎ", "strokes": 7, "icon": "grasp", "category": "动词" },
+            { "id": 166, "char": "找", "pinyin": "zhǎo", "strokes": 7, "icon": "find", "category": "动作" },
+            { "id": 167, "char": "给", "pinyin": "gěi", "strokes": 9, "icon": "give", "category": "动作" },
+            { "id": 168, "char": "吃", "pinyin": "chī", "strokes": 6, "icon": "eat", "category": "动作" },
+            { "id": 169, "char": "喝", "pinyin": "hē", "strokes": 12, "icon": "drink", "category": "动作" },
+            { "id": 170, "char": "玩", "pinyin": "wán", "strokes": 8, "icon": "play", "category": "动作" }
+          ]
+        },
+        {
+          "stageId": 18,
+          "level": 4,
+          "stageInLevel": 6,
+          "name": "第18关",
+          "characters": [
+            { "id": 171, "char": "门", "pinyin": "mén", "strokes": 3, "icon": "door", "category": "建筑" },
+            { "id": 172, "char": "房", "pinyin": "fáng", "strokes": 8, "icon": "house", "category": "建筑" },
+            { "id": 173, "char": "床", "pinyin": "chuáng", "strokes": 7, "icon": "bed", "category": "家具" },
+            { "id": 174, "char": "桌", "pinyin": "zhuō", "strokes": 10, "icon": "table", "category": "家具" },
+            { "id": 175, "char": "杯", "pinyin": "bēi", "strokes": 8, "icon": "cup", "category": "物品" },
+            { "id": 176, "char": "笔", "pinyin": "bǐ", "strokes": 10, "icon": "pen", "category": "文具" },
+            { "id": 177, "char": "纸", "pinyin": "zhǐ", "strokes": 7, "icon": "paper", "category": "文具" },
+            { "id": 178, "char": "画", "pinyin": "huà", "strokes": 8, "icon": "draw", "category": "动作" },
+            { "id": 179, "char": "书", "pinyin": "shū", "strokes": 4, "icon": "book", "category": "物品" },
+            { "id": 180, "char": "包", "pinyin": "bāo", "strokes": 5, "icon": "bag", "category": "物品" }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "name": "L5级",
+      "strokeRange": "9-10画",
+      "stages": [
+        {
+          "stageId": 19,
+          "level": 5,
+          "stageInLevel": 1,
+          "name": "第19关",
+          "characters": [
+            { "id": 181, "char": "家", "pinyin": "jiā", "strokes": 10, "icon": "home", "category": "建筑" },
+            { "id": 182, "char": "校", "pinyin": "xiào", "strokes": 10, "icon": "school", "category": "建筑" },
+            { "id": 183, "char": "园", "pinyin": "yuán", "strokes": 7, "icon": "garden", "category": "地点" },
+            { "id": 184, "char": "桥", "pinyin": "qiáo", "strokes": 10, "icon": "bridge", "category": "建筑" },
+            { "id": 185, "char": "船", "pinyin": "chuán", "strokes": 11, "icon": "boat", "category": "交通" },
+            { "id": 186, "char": "飞", "pinyin": "fēi", "strokes": 3, "icon": "fly", "category": "动作" },
+            { "id": 187, "char": "机", "pinyin": "jī", "strokes": 6, "icon": "machine", "category": "机械" },
+            { "id": 188, "char": "路", "pinyin": "lù", "strokes": 13, "icon": "road", "category": "交通" },
+            { "id": 189, "char": "街", "pinyin": "jiē", "strokes": 12, "icon": "street", "category": "地点" },
+            { "id": 190, "char": "城", "pinyin": "chéng", "strokes": 9, "icon": "city", "category": "地点" }
+          ]
+        },
+        {
+          "stageId": 20,
+          "level": 5,
+          "stageInLevel": 2,
+          "name": "第20关",
+          "characters": [
+            { "id": 191, "char": "高", "pinyin": "gāo", "strokes": 10, "icon": "tall", "category": "形容词" },
+            { "id": 192, "char": "新", "pinyin": "xīn", "strokes": 13, "icon": "new", "category": "形容词" },
+            { "id": 193, "char": "亮", "pinyin": "liàng", "strokes": 9, "icon": "bright", "category": "形容词" },
+            { "id": 194, "char": "美", "pinyin": "měi", "strokes": 9, "icon": "beautiful", "category": "形容词" },
+            { "id": 195, "char": "笑", "pinyin": "xiào", "strokes": 10, "icon": "laugh", "category": "动作" },
+            { "id": 196, "char": "哭", "pinyin": "kū", "strokes": 10, "icon": "cry", "category": "动作" },
+            { "id": 197, "char": "唱", "pinyin": "chàng", "strokes": 11, "icon": "sing", "category": "动作" },
+            { "id": 198, "char": "跳", "pinyin": "tiào", "strokes": 13, "icon": "jump", "category": "动作" },
+            { "id": 199, "char": "跑", "pinyin": "pǎo", "strokes": 12, "icon": "run", "category": "动作" },
+            { "id": 200, "char": "睡", "pinyin": "shuì", "strokes": 13, "icon": "sleep", "category": "动作" }
+          ]
+        },
+        {
+          "stageId": 21,
+          "level": 5,
+          "stageInLevel": 3,
+          "name": "第21关",
+          "characters": [
+            { "id": 201, "char": "衫", "pinyin": "shān", "strokes": 8, "icon": "shirt", "category": "服饰" },
+            { "id": 202, "char": "帽", "pinyin": "mào", "strokes": 12, "icon": "hat", "category": "服饰" },
+            { "id": 203, "char": "鞋", "pinyin": "xié", "strokes": 15, "icon": "shoes", "category": "服饰" },
+            { "id": 204, "char": "袜", "pinyin": "wà", "strokes": 10, "icon": "socks", "category": "服饰" },
+            { "id": 205, "char": "黄", "pinyin": "huáng", "strokes": 11, "icon": "yellow", "category": "颜色" },
+            { "id": 206, "char": "蓝", "pinyin": "lán", "strokes": 13, "icon": "blue", "category": "颜色" },
+            { "id": 207, "char": "绿", "pinyin": "lǜ", "strokes": 11, "icon": "green", "category": "颜色" },
+            { "id": 208, "char": "黑", "pinyin": "hēi", "strokes": 12, "icon": "black", "category": "颜色" },
+            { "id": 209, "char": "圆", "pinyin": "yuán", "strokes": 10, "icon": "circle", "category": "形状" },
+            { "id": 210, "char": "亮", "pinyin": "liàng", "strokes": 9, "icon": "bright", "category": "形容词" }
+          ]
+        },
+        {
+          "stageId": 22,
+          "level": 5,
+          "stageInLevel": 4,
+          "name": "第22关",
+          "characters": [
+            { "id": 211, "char": "热", "pinyin": "rè", "strokes": 10, "icon": "hot", "category": "形容词" },
+            { "id": 212, "char": "冷", "pinyin": "lěng", "strokes": 7, "icon": "cold", "category": "形容词" },
+            { "id": 213, "char": "暖", "pinyin": "nuǎn", "strokes": 13, "icon": "warm", "category": "形容词" },
+            { "id": 214, "char": "凉", "pinyin": "liáng", "strokes": 10, "icon": "cool", "category": "形容词" },
+            { "id": 215, "char": "夏", "pinyin": "xià", "strokes": 10, "icon": "summer", "category": "季节" },
+            { "id": 216, "char": "秋", "pinyin": "qiū", "strokes": 9, "icon": "autumn", "category": "季节" },
+            { "id": 217, "char": "冬", "pinyin": "dōng", "strokes": 5, "icon": "winter", "category": "季节" },
+            { "id": 218, "char": "晨", "pinyin": "chén", "strokes": 11, "icon": "morning", "category": "时间" },
+            { "id": 219, "char": "晚", "pinyin": "wǎn", "strokes": 11, "icon": "evening", "category": "时间" },
+            { "id": 220, "char": "昨", "pinyin": "zuó", "strokes": 9, "icon": "yesterday", "category": "时间" }
+          ]
+        },
+        {
+          "stageId": 23,
+          "level": 5,
+          "stageInLevel": 5,
+          "name": "第23关",
+          "characters": [
+            { "id": 221, "char": "爱", "pinyin": "ài", "strokes": 10, "icon": "love", "category": "情感" },
+            { "id": 222, "char": "想", "pinyin": "xiǎng", "strokes": 13, "icon": "think", "category": "动作" },
+            { "id": 223, "char": "知", "pinyin": "zhī", "strokes": 8, "icon": "know", "category": "动作" },
+            { "id": 224, "char": "道", "pinyin": "dào", "strokes": 12, "icon": "way", "category": "名词" },
+            { "id": 225, "char": "问", "pinyin": "wèn", "strokes": 6, "icon": "ask", "category": "动作" },
+            { "id": 226, "char": "答", "pinyin": "dá", "strokes": 12, "icon": "answer", "category": "动作" },
+            { "id": 227, "char": "谢", "pinyin": "xiè", "strokes": 12, "icon": "thank", "category": "动作" },
+            { "id": 228, "char": "帮", "pinyin": "bāng", "strokes": 9, "icon": "help", "category": "动作" },
+            { "id": 229, "char": "送", "pinyin": "sòng", "strokes": 9, "icon": "send", "category": "动作" },
+            { "id": 230, "char": "借", "pinyin": "jiè", "strokes": 10, "icon": "borrow", "category": "动作" }
+          ]
+        },
+        {
+          "stageId": 24,
+          "level": 5,
+          "stageInLevel": 6,
+          "name": "第24关",
+          "characters": [
+            { "id": 231, "char": "买", "pinyin": "mǎi", "strokes": 6, "icon": "buy", "category": "动作" },
+            { "id": 232, "char": "卖", "pinyin": "mài", "strokes": 8, "icon": "sell", "category": "动作" },
+            { "id": 233, "char": "钱", "pinyin": "qián", "strokes": 10, "icon": "money", "category": "货币" },
+            { "id": 234, "char": "块", "pinyin": "kuài", "strokes": 7, "icon": "piece", "category": "量词" },
+            { "id": 235, "char": "菜", "pinyin": "cài", "strokes": 11, "icon": "vegetable", "category": "食物" },
+            { "id": 236, "char": "饭", "pinyin": "fàn", "strokes": 7, "icon": "meal", "category": "食物" },
+            { "id": 237, "char": "面", "pinyin": "miàn", "strokes": 9, "icon": "noodle", "category": "食物" },
+            { "id": 238, "char": "汤", "pinyin": "tāng", "strokes": 6, "icon": "soup", "category": "食物" },
+            { "id": 239, "char": "茶", "pinyin": "chá", "strokes": 9, "icon": "tea", "category": "饮品" },
+            { "id": 240, "char": "奶", "pinyin": "nǎi", "strokes": 5, "icon": "milk", "category": "饮品" }
+          ]
+        },
+        {
+          "stageId": 25,
+          "level": 5,
+          "stageInLevel": 7,
+          "name": "第25关",
+          "characters": [
+            { "id": 241, "char": "看", "pinyin": "kàn", "strokes": 9, "icon": "look", "category": "动作" },
+            { "id": 242, "char": "着", "pinyin": "zhe", "strokes": 11, "icon": "particle", "category": "语法" },
+            { "id": 243, "char": "呢", "pinyin": "ne", "strokes": 8, "icon": "particle", "category": "语法" },
+            { "id": 244, "char": "吗", "pinyin": "ma", "strokes": 6, "icon": "question", "category": "语法" },
+            { "id": 245, "char": "吧", "pinyin": "ba", "strokes": 7, "icon": "particle", "category": "语法" },
+            { "id": 246, "char": "啊", "pinyin": "a", "strokes": 10, "icon": "exclamation", "category": "语气" },
+            { "id": 247, "char": "哦", "pinyin": "ò", "strokes": 9, "icon": "oh", "category": "语气" },
+            { "id": 248, "char": "哇", "pinyin": "wa", "strokes": 9, "icon": "wow", "category": "语气" },
+            { "id": 249, "char": "嗯", "pinyin": "ng", "strokes": 13, "icon": "hmm", "category": "语气" },
+            { "id": 250, "char": "喂", "pinyin": "wèi", "strokes": 12, "icon": "hello", "category": "问候" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

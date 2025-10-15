@@ -1,0 +1,6 @@
+# 汉字读音音频文件目录
+
+此目录用于存放汉字读音的 MP3 文件。
+
+运行 `python scripts/generate_audio.py` 生成音频文件。
+
