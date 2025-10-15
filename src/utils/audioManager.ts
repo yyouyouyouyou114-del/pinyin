@@ -257,7 +257,7 @@ class AudioManager {
       console.log('✅ MP3 加载成功:', character);
     });
     
-    audio.addEventListener('error', (e) => {
+    audio.addEventListener('error', () => {
       console.warn('⚠️ MP3 加载失败，回退到 TTS:', character);
       console.log('   错误:', audio.error);
       // 回退到 TTS

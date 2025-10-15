@@ -10,7 +10,6 @@ export const LearningPage = () => {
   const { charactersData, currentStageId, setCurrentPage, startExam } = useAppStore();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [learnedIndices, setLearnedIndices] = useState<Set<number>>(new Set([0])); // 记录已学习的汉字索引
-  const [debugInfo, setDebugInfo] = useState<string>('');
 
   // 在页面加载时解锁音频（隐藏调试提示）
   useEffect(() => {
@@ -101,7 +100,7 @@ export const LearningPage = () => {
     const ahead1 = stage.characters[currentIndex + 1]?.char;
     const ahead2 = stage.characters[currentIndex + 2]?.char;
     audioManager.prefetchCharacters([currentChar.char, ahead1, ahead2]);
-  }, [currentIndex, stage.id]);
+  }, [currentIndex, stage.stageId, currentChar.char, stage.characters]);
 
   return (
     <div className="page-container bg-gradient-to-br from-blue-400 via-cyan-400 to-teal-400">
@@ -236,16 +235,6 @@ export const LearningPage = () => {
         </motion.button>
       </motion.div>
 
-      {/* 调试信息 - 移动端显示（增强版） */}
-      {debugInfo && (
-        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-900 to-blue-900 text-white px-3 py-3 text-center shadow-lg border-t-2 border-white/20 z-50">
-          <p className="text-sm font-semibold mb-1">🔍 设备信息</p>
-          <p className="text-xs">{debugInfo}</p>
-          <p className="text-xs mt-2 text-yellow-300">
-            💡 如听不到声音，请点击汉字卡片测试
-          </p>
-        </div>
-      )}
     </div>
   );
 };

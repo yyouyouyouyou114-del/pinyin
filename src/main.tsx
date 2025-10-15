@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
-import { registerSW } from 'virtual:pwa-register';
 
 // 阻止默认的双指缩放等手势
 document.addEventListener('gesturestart', (e) => e.preventDefault());
@@ -36,9 +35,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 );
 
 // 注册 PWA（自动更新）
-try {
-  registerSW({ immediate: true });
-} catch (e) {
-  console.warn('PWA register failed:', e);
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      console.warn('PWA register failed');
+    });
+  });
 }
 

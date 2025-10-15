@@ -2,7 +2,6 @@ import { useAppStore } from '@/store/useAppStore';
 import { audioManager } from '@/utils/audioManager';
 import { Lock, Star, Settings } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 // 25辆不同颜色的炫酷赛车
 const carColors = [
