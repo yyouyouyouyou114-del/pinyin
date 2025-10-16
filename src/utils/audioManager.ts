@@ -145,6 +145,7 @@ class AudioManager {
     this.unlockAudio();
     
     console.log('🔊 Playing character sound:', character);
+    // 移除此前对“上”的强制 TTS，改走统一 MP3 流程（下方增加缓存清洗）
     
     // 尝试使用 MP3 文件（按 DeepSeek 建议）
     this.playCharacterSoundAudio(character);
@@ -243,44 +244,80 @@ class AudioManager {
 
   // 使用 HTML5 Audio 播放汉字音频（按 DeepSeek 建议）
   private playCharacterSoundAudio(character: string) {
-    const audioPath = `/audio/characters/${character}.mp3`;
-    
-    console.log('🎵 尝试播放 MP3:', audioPath);
-    
-    // 优先使用已预取的音频
-    const cached = this.prefetchAudios.get(character);
-    const audio = cached ? cached : new Audio(audioPath);
-    audio.volume = this.volume;
-    
-    // 添加事件监听
-    audio.addEventListener('loadeddata', () => {
-      console.log('✅ MP3 加载成功:', character);
-    });
-    
-    audio.addEventListener('error', () => {
-      console.warn('⚠️ MP3 加载失败，回退到 TTS:', character);
-      console.log('   错误:', audio.error);
-      // 回退到 TTS
-      this.playCharacterSoundTTS(character);
-    });
-    
-    audio.addEventListener('ended', () => {
-      console.log('✅ MP3 播放完成:', character);
-      this.isSpeaking = false;
-      this.processSpeechQueue();
-    });
-    
-    // 添加到队列播放
-    this.speechQueue.push(() => {
-      console.log('▶️ 开始播放 MP3:', character);
-      audio.play().catch(error => {
-        console.error('❌ MP3 播放失败:', error);
-        // 播放失败，尝试 TTS
+    const urls = [
+      `/audio/characters/${character}.mp3`,
+      `/audio/characters/${encodeURIComponent(character)}.mp3`,
+    ];
+
+    const tryPlayUrl = (idx: number) => {
+      if (idx >= urls.length) {
+        console.warn('⚠️ 所有MP3路径均失败，回退到TTS:', character);
         this.playCharacterSoundTTS(character);
+        return;
+      }
+
+      const url = urls[idx];
+      console.log('🎵 尝试播放 MP3:', url);
+
+      const audio = new Audio(url);
+      audio.preload = 'auto';
+      audio.volume = this.volume;
+      audio.crossOrigin = 'anonymous';
+      audio.load();
+
+      let finishedOrFailed = false;
+      const failAndNext = (reason: string) => {
+        if (finishedOrFailed) return;
+        finishedOrFailed = true;
+        console.warn(`⚠️ MP3 失败（${reason}）:`, url);
+        // 推入下一尝试并立即让队列继续
+        tryPlayUrl(idx + 1);
+        this.isSpeaking = false;
+        this.processSpeechQueue();
+      };
+
+      const timeout = window.setTimeout(() => failAndNext('timeout'), 1200);
+      audio.addEventListener('canplaythrough', () => window.clearTimeout(timeout), { once: true });
+      audio.addEventListener('stalled', () => failAndNext('stalled'), { once: true });
+      audio.addEventListener('abort', () => failAndNext('abort'), { once: true });
+      audio.addEventListener('error', () => failAndNext('error'), { once: true });
+      audio.addEventListener('playing', () => {
+        console.log('▶️ MP3 正在播放:', character);
+      }, { once: true });
+
+      audio.addEventListener('ended', () => {
+        if (finishedOrFailed) return;
+        console.log('✅ MP3 播放完成:', character);
+        this.isSpeaking = false;
+        this.processSpeechQueue();
       });
-    });
-    
-    this.processSpeechQueue();
+
+      this.speechQueue.push(() => {
+        console.log('▶️ 开始播放 MP3:', character);
+        let retried = false;
+        const tryPlay = () => audio.play().then(() => {
+          window.clearTimeout(timeout);
+        }).catch(err => {
+          console.error('❌ MP3 播放失败:', err);
+          if (!retried) {
+            retried = true;
+            // 尝试恢复音频环境后重试一次
+            try { this.audioContext?.resume?.(); } catch {}
+            setTimeout(() => {
+              audio.load();
+              tryPlay();
+            }, 150);
+          } else {
+            failAndNext('play-reject');
+          }
+        });
+        tryPlay();
+      });
+
+      this.processSpeechQueue();
+    };
+
+    tryPlayUrl(0);
   }
 
   // 预取相邻汉字的音频，减少点击等待
@@ -288,10 +325,11 @@ class AudioManager {
     const unique = Array.from(new Set(characters.filter(Boolean)));
     unique.forEach((ch) => {
       if (this.prefetchAudios.has(ch)) return;
-      const url = `/audio/characters/${ch}.mp3`;
+      const url = `/audio/characters/${encodeURIComponent(ch)}.mp3`;
       const audio = new Audio();
       audio.src = url;
       audio.preload = 'auto';
+      (audio as any).crossOrigin = 'anonymous';
       // 加入内存缓存，加载失败时清理
       audio.addEventListener('canplaythrough', () => {
         this.prefetchAudios.set(ch, audio);
@@ -500,128 +538,314 @@ class AudioManager {
     // 先解锁音频
     this.unlockAudio();
     
+    // 若当前环境对 TTS 支持不佳（如微信/百度系），优先使用本地 MP3 兜底
+    const compatibility = this.checkBrowserCompatibility();
+    if (!compatibility.supported) {
+      this.playPraiseMp3Fallback(type);
+      return;
+    }
+
     const praiseData = praiseDataJson.praiseVoices[type];
-    const phrases = praiseData.phrases;
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    // 仅使用不超过8个字，且不含顿号/逗号/句号的单句
+    const filtered = praiseData.phrases
+      .map(p => (p.text || '').trim())
+      .filter(t => t.length > 0 && t.length <= 8)
+      .filter(t => !(/[，、。；]/.test(t)));
+    // 兜底的简短表扬词（可重复）
+    const fallbacks = ['真棒！','太棒了！','做得好！','很厉害！','不错哦！','答对了！'];
+    const candidates = filtered.length > 0 ? filtered : fallbacks;
+    const text = candidates[Math.floor(Math.random() * candidates.length)];
     
-    console.log('🎉 准备播放表扬:', randomPhrase.text);
+    console.log('🎉 准备播放表扬:', text);
     
     // 添加到队列
     if ('speechSynthesis' in window) {
       this.speechQueue.push(() => {
-        this.speakPraiseNow(randomPhrase.text);
+        this.speakPraiseNow(text);
       });
       this.processSpeechQueue();
     }
   }
 
-  // 实际播放表扬语音
-  private speakPraiseNow(text: string) {
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    
-    // 尝试使用中文语音
-    const voices = window.speechSynthesis.getVoices();
-    const chineseVoice = voices.find(voice => 
-      voice.lang === 'zh-CN' || voice.lang.startsWith('zh')
-    );
-    
-    if (chineseVoice) {
-      utterance.voice = chineseVoice;
-    }
-    
-    utterance.lang = 'zh-CN';
-    utterance.rate = 0.95;
-    utterance.pitch = 1.2;
-    utterance.volume = this.volume;
-    
-    utterance.onerror = (event) => {
-      console.error('❌ Praise speech error:', event.error);
-      this.isSpeaking = false;
-      setTimeout(() => this.processSpeechQueue(), 100);
-    };
-    
-    utterance.onend = () => {
-      console.log('✅ 表扬播放完成');
-      this.isSpeaking = false;
-      setTimeout(() => this.processSpeechQueue(), 100);
-    };
-    
-    setTimeout(() => {
-      try {
-        console.log('🎉 播放表扬:', text);
-        window.speechSynthesis.speak(utterance);
-      } catch (e) {
-        console.error('❌ Failed to speak praise:', e);
+  // 表扬语音 MP3 兜底（移动端/微信）
+  private playPraiseMp3Fallback(type: 'basic' | 'combo' | 'perfect') {
+    // 预设少量候选文件名，存在即播，不存在自动换下一个
+    const candidates = [
+      `/audio/praise/praise_${type}_01.mp3`,
+      `/audio/praise/praise_${type}_02.mp3`,
+      `/audio/praise/praise_${type}_03.mp3`,
+    ];
+
+    const tryIdx = (idx: number) => {
+      if (idx >= candidates.length) {
+        console.warn('⚠️ 未找到可用的表扬 MP3，跳过');
+        return;
+      }
+      const url = candidates[idx];
+      const audio = new Audio(url);
+      audio.preload = 'auto';
+      audio.volume = this.volume;
+      (audio as any).crossOrigin = 'anonymous';
+
+      let done = false;
+      const fail = () => {
+        if (done) return;
+        done = true;
+        console.warn('⚠️ 表扬 MP3 加载失败，尝试下一个：', url);
+        tryIdx(idx + 1);
+      };
+
+      audio.addEventListener('canplaythrough', () => {
+        // 使用播放队列，避免与其他音频重叠
+        this.speechQueue.push(() => {
+          audio.play().then(() => {
+            console.log('▶️ 播放表扬 MP3:', url);
+          }).catch(err => {
+            console.error('❌ 表扬 MP3 播放失败:', err);
+            fail();
+            this.isSpeaking = false;
+            this.processSpeechQueue();
+          });
+        });
+        this.processSpeechQueue();
+      }, { once: true });
+
+      audio.addEventListener('error', fail, { once: true });
+      audio.addEventListener('ended', () => {
         this.isSpeaking = false;
         this.processSpeechQueue();
+      }, { once: true });
+    };
+
+    tryIdx(0);
+  }
+
+  // 实际播放表扬语音（更稳健：等待语音列表、优先童声、必要时恢复播放）
+  private speakPraiseNow(text: string) {
+    window.speechSynthesis.cancel();
+
+    const createUtterance = () => {
+      const utterance = new SpeechSynthesisUtterance(text);
+
+      // 选择中文语音（优先童声/女声）
+      const voices = window.speechSynthesis.getVoices();
+      let chineseVoice = voices.find(v =>
+        (v.lang === 'zh-CN' || v.lang.startsWith('zh')) &&
+        (v.name.includes('小') || v.name.includes('Child') || v.name.includes('Kid'))
+      );
+      if (!chineseVoice) {
+        chineseVoice = voices.find(v =>
+          (v.lang === 'zh-CN' || v.lang.startsWith('zh')) &&
+          (v.name.includes('Female') || v.name.includes('女'))
+        );
       }
-    }, 50);
+      if (!chineseVoice) {
+        chineseVoice = voices.find(v => v.lang === 'zh-CN' || v.lang.startsWith('zh'));
+      }
+      if (chineseVoice) {
+        utterance.voice = chineseVoice;
+        console.log('🎤 使用语音:', chineseVoice.name);
+      }
+
+      utterance.lang = 'zh-CN';
+      utterance.rate = 1.0;
+      utterance.pitch = 1.5; // 童音效果
+      utterance.volume = this.volume;
+
+      utterance.onerror = (event) => {
+        console.error('❌ Praise speech error:', event.error);
+        this.isSpeaking = false;
+        setTimeout(() => this.processSpeechQueue(), 100);
+      };
+      utterance.onend = () => {
+        console.log('✅ 表扬播放完成');
+        this.isSpeaking = false;
+        setTimeout(() => this.processSpeechQueue(), 100);
+      };
+
+      // 小米/MIUI 延迟更长一点
+      const delay = /Xiaomi|Mi|Redmi|MIUI/i.test(navigator.userAgent) ? 150 : 50;
+      setTimeout(() => {
+        try {
+          console.log('🎉 播放表扬:', text);
+          window.speechSynthesis.speak(utterance);
+          if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+          }
+        } catch (e) {
+          console.error('❌ Failed to speak praise:', e);
+          this.isSpeaking = false;
+          this.processSpeechQueue();
+        }
+      }, delay);
+    };
+
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length === 0) {
+      console.log('⏳ 语音列表未加载，等待中（表扬）...');
+      const timeout = setTimeout(() => {
+        console.warn('⚠️ 语音加载超时（表扬），使用默认语音');
+        createUtterance();
+      }, 2000);
+      window.speechSynthesis.addEventListener('voiceschanged', () => {
+        clearTimeout(timeout);
+        console.log('✅ 语音列表已加载（表扬）');
+        createUtterance();
+      }, { once: true });
+      window.speechSynthesis.getVoices();
+    } else {
+      createUtterance();
+    }
   }
 
   // 播放鼓励语音（答错时，使用队列）
   public playEncouragement() {
     // 先解锁音频
     this.unlockAudio();
+    const compatibility = this.checkBrowserCompatibility();
+    if (!compatibility.supported) {
+      this.playEncouragementMp3Fallback();
+      return;
+    }
     
-    const phrases = praiseDataJson.praiseVoices.encouragement.phrases;
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    // 使用固定的简短单句鼓励词（<=8字，可重复）
+    const candidates = ['加油！','再试试！','别灰心！','你可以！','别担心！','继续加油！'];
+    const text = candidates[Math.floor(Math.random() * candidates.length)];
     
-    console.log('💪 准备播放鼓励:', randomPhrase.text);
+    console.log('💪 准备播放鼓励:', text);
     
     // 添加到队列
     if ('speechSynthesis' in window) {
       this.speechQueue.push(() => {
-        this.speakEncouragementNow(randomPhrase.text);
+        this.speakEncouragementNow(text);
       });
       this.processSpeechQueue();
     }
   }
 
-  // 实际播放鼓励语音
-  private speakEncouragementNow(text: string) {
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    
-    // 尝试使用中文语音
-    const voices = window.speechSynthesis.getVoices();
-    const chineseVoice = voices.find(voice => 
-      voice.lang === 'zh-CN' || voice.lang.startsWith('zh')
-    );
-    
-    if (chineseVoice) {
-      utterance.voice = chineseVoice;
-    }
-    
-    utterance.lang = 'zh-CN';
-    utterance.rate = 0.85;
-    utterance.pitch = 1.0;
-    utterance.volume = this.volume;
-    
-    utterance.onerror = (event) => {
-      console.error('❌ Encouragement speech error:', event.error);
-      this.isSpeaking = false;
-      setTimeout(() => this.processSpeechQueue(), 100);
-    };
-    
-    utterance.onend = () => {
-      console.log('✅ 鼓励播放完成');
-      this.isSpeaking = false;
-      setTimeout(() => this.processSpeechQueue(), 100);
-    };
-    
-    setTimeout(() => {
-      try {
-        console.log('💪 播放鼓励:', text);
-        window.speechSynthesis.speak(utterance);
-      } catch (e) {
-        console.error('❌ Failed to speak encouragement:', e);
+  // 鼓励语音 MP3 兜底（移动端/微信）
+  private playEncouragementMp3Fallback() {
+    const candidates = [
+      '/audio/praise/encouragement_01.mp3',
+      '/audio/praise/encouragement_02.mp3',
+      '/audio/praise/encouragement_03.mp3',
+    ];
+
+    const tryIdx = (idx: number) => {
+      if (idx >= candidates.length) {
+        console.warn('⚠️ 未找到可用的鼓励 MP3，跳过');
+        return;
+      }
+      const url = candidates[idx];
+      const audio = new Audio(url);
+      audio.preload = 'auto';
+      audio.volume = this.volume;
+      (audio as any).crossOrigin = 'anonymous';
+
+      let done = false;
+      const fail = () => {
+        if (done) return;
+        done = true;
+        console.warn('⚠️ 鼓励 MP3 加载失败，尝试下一个：', url);
+        tryIdx(idx + 1);
+      };
+
+      audio.addEventListener('canplaythrough', () => {
+        this.speechQueue.push(() => {
+          audio.play().then(() => {
+            console.log('▶️ 播放鼓励 MP3:', url);
+          }).catch(err => {
+            console.error('❌ 鼓励 MP3 播放失败:', err);
+            fail();
+            this.isSpeaking = false;
+            this.processSpeechQueue();
+          });
+        });
+        this.processSpeechQueue();
+      }, { once: true });
+
+      audio.addEventListener('error', fail, { once: true });
+      audio.addEventListener('ended', () => {
         this.isSpeaking = false;
         this.processSpeechQueue();
+      }, { once: true });
+    };
+
+    tryIdx(0);
+  }
+
+  // 实际播放鼓励语音（同样稳健）
+  private speakEncouragementNow(text: string) {
+    window.speechSynthesis.cancel();
+
+    const createUtterance = () => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      let chineseVoice = voices.find(v =>
+        (v.lang === 'zh-CN' || v.lang.startsWith('zh')) &&
+        (v.name.includes('小') || v.name.includes('Child') || v.name.includes('Kid'))
+      );
+      if (!chineseVoice) {
+        chineseVoice = voices.find(v =>
+          (v.lang === 'zh-CN' || v.lang.startsWith('zh')) &&
+          (v.name.includes('Female') || v.name.includes('女'))
+        );
       }
-    }, 50);
+      if (!chineseVoice) {
+        chineseVoice = voices.find(v => v.lang === 'zh-CN' || v.lang.startsWith('zh'));
+      }
+      if (chineseVoice) {
+        utterance.voice = chineseVoice;
+      }
+
+      utterance.lang = 'zh-CN';
+      utterance.rate = 0.9;  // 温柔
+      utterance.pitch = 1.4; // 童声
+      utterance.volume = this.volume;
+
+      utterance.onerror = (event) => {
+        console.error('❌ Encouragement speech error:', event.error);
+        this.isSpeaking = false;
+        setTimeout(() => this.processSpeechQueue(), 100);
+      };
+      utterance.onend = () => {
+        console.log('✅ 鼓励播放完成');
+        this.isSpeaking = false;
+        setTimeout(() => this.processSpeechQueue(), 100);
+      };
+
+      const delay = /Xiaomi|Mi|Redmi|MIUI/i.test(navigator.userAgent) ? 150 : 50;
+      setTimeout(() => {
+        try {
+          console.log('💪 播放鼓励:', text);
+          window.speechSynthesis.speak(utterance);
+          if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+          }
+        } catch (e) {
+          console.error('❌ Failed to speak encouragement:', e);
+          this.isSpeaking = false;
+          this.processSpeechQueue();
+        }
+      }, delay);
+    };
+
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length === 0) {
+      console.log('⏳ 语音列表未加载，等待中（鼓励）...');
+      const timeout = setTimeout(() => {
+        console.warn('⚠️ 语音加载超时（鼓励），使用默认语音');
+        createUtterance();
+      }, 2000);
+      window.speechSynthesis.addEventListener('voiceschanged', () => {
+        clearTimeout(timeout);
+        console.log('✅ 语音列表已加载（鼓励）');
+        createUtterance();
+      }, { once: true });
+      window.speechSynthesis.getVoices();
+    } else {
+      createUtterance();
+    }
   }
 
   // 播放音效（简单的提示音）

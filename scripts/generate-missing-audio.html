@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生成缺失的汉字音频</title>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #667eea;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+    .character-card {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .character {
+      font-size: 80px;
+      font-weight: bold;
+      color: #333;
+      margin: 10px 0;
+    }
+    .pinyin {
+      font-size: 32px;
+      color: #667eea;
+      margin: 10px 0;
+    }
+    .emoji {
+      font-size: 60px;
+      margin: 10px 0;
+    }
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .status {
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .status.info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+    .instructions {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .instructions h3 {
+      color: #856404;
+      margin-top: 0;
+    }
+    .instructions ol {
+      padding-left: 20px;
+    }
+    .instructions li {
+      margin: 10px 0;
+      color: #856404;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .progress {
+      text-align: center;
+      font-size: 24px;
+      margin: 20px 0;
+      color: #667eea;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎵 生成缺失的汉字音频</h1>
+    <p class="subtitle">自动生成"止"和"粉"的标准读音</p>
+
+    <div class="instructions">
+      <h3>📋 使用说明</h3>
+      <ol>
+        <li>点击"试听"按钮预览语音效果</li>
+        <li>满意后点击"生成并下载"自动生成MP3文件</li>
+        <li>将下载的文件放入 <code>public/audio/characters/</code> 目录</li>
+        <li>刷新项目页面即可使用</li>
+      </ol>
+    </div>
+
+    <div class="progress" id="progress">准备生成 2 个音频文件</div>
+
+    <!-- 汉字：止 -->
+    <div class="character-card">
+      <div class="emoji">🛑</div>
+      <div class="character">止</div>
+      <div class="pinyin">zhǐ</div>
+      <div class="button-group">
+        <button onclick="playCharacter('止', 'zhǐ')">▶️ 试听</button>
+        <button onclick="generateAudio('止', 'zhǐ')" id="btn-zhi">💾 生成并下载</button>
+      </div>
+      <div id="status-zhi"></div>
+    </div>
+
+    <!-- 汉字：粉 -->
+    <div class="character-card">
+      <div class="emoji">💗</div>
+      <div class="character">粉</div>
+      <div class="pinyin">fěn</div>
+      <div class="button-group">
+        <button onclick="playCharacter('粉', 'fěn')">▶️ 试听</button>
+        <button onclick="generateAudio('粉', 'fěn')" id="btn-fen">💾 生成并下载</button>
+      </div>
+      <div id="status-fen"></div>
+    </div>
+
+    <div class="button-group" style="margin-top: 40px;">
+      <button onclick="generateAll()" style="font-size: 20px; padding: 20px 40px;">
+        🚀 一键生成所有音频
+      </button>
+    </div>
+
+    <div id="global-status"></div>
+  </div>
+
+  <script>
+    let generatedCount = 0;
+    const totalCount = 2;
+
+    // 更新进度
+    function updateProgress() {
+      const progress = document.getElementById('progress');
+      if (generatedCount === 0) {
+        progress.textContent = '准备生成 2 个音频文件';
+        progress.style.color = '#667eea';
+      } else if (generatedCount < totalCount) {
+        progress.textContent = `已生成 ${generatedCount} / ${totalCount} 个音频`;
+        progress.style.color = '#f39c12';
+      } else {
+        progress.textContent = '✅ 全部完成！2 / 2 个音频已生成';
+        progress.style.color = '#27ae60';
+      }
+    }
+
+    // 试听汉字读音
+    function playCharacter(char, pinyin) {
+      if (!('speechSynthesis' in window)) {
+        alert('您的浏览器不支持语音合成功能，请使用Chrome或Edge浏览器');
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(char);
+      
+      // 获取中文语音
+      const voices = window.speechSynthesis.getVoices();
+      const chineseVoice = voices.find(v => 
+        v.lang === 'zh-CN' || v.lang.startsWith('zh')
+      );
+      
+      if (chineseVoice) {
+        utterance.voice = chineseVoice;
+      }
+      
+      utterance.lang = 'zh-CN';
+      utterance.rate = 0.8;  // 较慢，更清晰
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+      
+      console.log(`试听: ${char} (${pinyin})`);
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // 生成音频并下载
+    async function generateAudio(char, pinyin) {
+      const statusId = char === '止' ? 'status-zhi' : 'status-fen';
+      const btnId = char === '止' ? 'btn-zhi' : 'btn-fen';
+      const statusEl = document.getElementById(statusId);
+      const btnEl = document.getElementById(btnId);
+      
+      btnEl.disabled = true;
+      statusEl.className = 'status info';
+      statusEl.textContent = '⏳ 正在生成音频...';
+
+      try {
+        // 使用 MediaRecorder 录制语音
+        const audioBlob = await recordSpeech(char);
+        
+        // 下载文件
+        const url = URL.createObjectURL(audioBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${char}.mp3`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        statusEl.className = 'status success';
+        statusEl.textContent = `✅ ${char}.mp3 生成成功！已开始下载`;
+        generatedCount++;
+        updateProgress();
+        
+        console.log(`✅ 生成成功: ${char}.mp3`);
+      } catch (error) {
+        statusEl.className = 'status error';
+        statusEl.textContent = `❌ 生成失败: ${error.message}`;
+        btnEl.disabled = false;
+        console.error('生成失败:', error);
+      }
+    }
+
+    // 录制语音为音频文件
+    function recordSpeech(char) {
+      return new Promise((resolve, reject) => {
+        if (!('speechSynthesis' in window)) {
+          reject(new Error('浏览器不支持语音合成'));
+          return;
+        }
+
+        // 创建音频上下文
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+        const destination = audioContext.createMediaStreamDestination();
+        
+        // 创建语音
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(char);
+        
+        // 获取中文语音
+        const voices = window.speechSynthesis.getVoices();
+        const chineseVoice = voices.find(v => 
+          v.lang === 'zh-CN' || v.lang.startsWith('zh')
+        );
+        
+        if (chineseVoice) {
+          utterance.voice = chineseVoice;
+        }
+        
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.8;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+
+        // 使用 MediaRecorder 录制
+        const mediaRecorder = new MediaRecorder(destination.stream, {
+          mimeType: 'audio/webm;codecs=opus'
+        });
+        
+        const chunks = [];
+        
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data.size > 0) {
+            chunks.push(e.data);
+          }
+        };
+        
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(chunks, { type: 'audio/mp3' });
+          audioContext.close();
+          resolve(blob);
+        };
+
+        utterance.onstart = () => {
+          console.log('开始录制:', char);
+          mediaRecorder.start();
+        };
+        
+        utterance.onend = () => {
+          console.log('录制结束:', char);
+          setTimeout(() => {
+            mediaRecorder.stop();
+          }, 500); // 延迟停止，确保录制完整
+        };
+        
+        utterance.onerror = (e) => {
+          console.error('语音错误:', e);
+          mediaRecorder.stop();
+          reject(new Error('语音合成失败'));
+        };
+        
+        // 开始播放（触发录制）
+        setTimeout(() => {
+          window.speechSynthesis.speak(utterance);
+        }, 100);
+      });
+    }
+
+    // 一键生成所有音频
+    async function generateAll() {
+      const globalStatus = document.getElementById('global-status');
+      globalStatus.className = 'status info';
+      globalStatus.textContent = '⏳ 正在批量生成音频文件...';
+      
+      try {
+        await generateAudio('止', 'zhǐ');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        await generateAudio('粉', 'fěn');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        globalStatus.className = 'status success';
+        globalStatus.textContent = '🎉 全部完成！请将下载的文件移动到 public/audio/characters/ 目录';
+      } catch (error) {
+        globalStatus.className = 'status error';
+        globalStatus.textContent = `❌ 批量生成出错: ${error.message}`;
+      }
+    }
+
+    // 初始化：加载语音列表
+    window.addEventListener('load', () => {
+      if ('speechSynthesis' in window) {
+        // 触发语音列表加载
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.addEventListener('voiceschanged', () => {
+          const voices = window.speechSynthesis.getVoices();
+          console.log('可用语音:', voices.length);
+          const chineseVoices = voices.filter(v => v.lang.includes('zh'));
+          console.log('中文语音:', chineseVoices.map(v => `${v.name} (${v.lang})`));
+        });
+      } else {
+        document.getElementById('global-status').innerHTML = 
+          '<div class="status error">❌ 您的浏览器不支持语音合成功能，请使用最新版Chrome或Edge浏览器</div>';
+      }
+      updateProgress();
+    });
+  </script>
+</body>
+</html>
+

@@ -35,19 +35,19 @@
       ]
     },
     "combo": {
-      "description": "连续答对3题及以上时播放",
-      "playCondition": "连续答对≥3题",
+      "description": "多题答对时播放",
+      "playCondition": "答对题目时",
       "phrases": [
-        { "id": 21, "text": "连续答对，真棒！", "duration": "2s" },
-        { "id": 22, "text": "哇！连对三题了！", "duration": "2s" },
+        { "id": 21, "text": "答得真棒！", "duration": "2s" },
+        { "id": 22, "text": "哇！又对了！", "duration": "2s" },
         { "id": 23, "text": "你简直是天才！", "duration": "2s" },
         { "id": 24, "text": "无人能挡！", "duration": "1.5s" },
-        { "id": 25, "text": "太厉害了！连胜中！", "duration": "2.5s" },
+        { "id": 25, "text": "太厉害了！", "duration": "2s" },
         { "id": 26, "text": "继续保持，你最棒！", "duration": "2.5s" },
         { "id": 27, "text": "哇！你太强了！", "duration": "2s" },
-        { "id": 28, "text": "连续正确！真了不起！", "duration": "2.5s" },
+        { "id": 28, "text": "回答正确！真了不起！", "duration": "2.5s" },
         { "id": 29, "text": "你真是学习高手！", "duration": "2s" },
-        { "id": 30, "text": "完美连胜！加油！", "duration": "2.5s" }
+        { "id": 30, "text": "表现完美！加油！", "duration": "2.5s" }
       ]
     },
     "perfect": {

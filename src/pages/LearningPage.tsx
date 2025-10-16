@@ -153,9 +153,16 @@ export const LearningPage = () => {
         onClick={handleCharacterClick}
         className="character-card w-[75%] max-w-md mx-auto cursor-pointer relative"
       >
-        {/* Emoji图标 */}
-        <div className="text-9xl text-center mb-4">
-          {emojiMap.mappings[currentChar.char as keyof typeof emojiMap.mappings] || '📝'}
+        {/* Emoji图标：固定容器高度，保证卡片高度一致 */}
+        <div className="h-32 md:h-36 flex items-center justify-center text-center mb-4 overflow-hidden">
+          <span className={
+            // 检测是否为纯文本（如"1000"），使用较小字体
+            /^[0-9a-zA-Z]+$/.test(emojiMap.mappings[currentChar.char as keyof typeof emojiMap.mappings] || '')
+              ? 'text-6xl font-bold'
+              : 'text-9xl'
+          }>
+            {emojiMap.mappings[currentChar.char as keyof typeof emojiMap.mappings] || '📝'}
+          </span>
         </div>
 
         {/* 汉字 */}
@@ -183,40 +190,42 @@ export const LearningPage = () => {
         </motion.div>
       </motion.div>
 
-      {/* 左右切换按钮 */}
-      <div className="absolute bottom-40 left-0 right-0 flex justify-between items-center px-8">
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          onClick={handlePrev}
-          disabled={isFirst}
-          className={`
-            w-16 h-16 rounded-full shadow-lg flex items-center justify-center text-2xl
-            ${isFirst ? 'bg-gray-300 text-gray-500' : 'bg-white text-primary-600'}
-          `}
-        >
-          ←
-        </motion.button>
+      {/* 左右切换按钮 - 垂直左右居中，避免与卡片重叠 */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 -translate-y-1/2 left-4">
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={handlePrev}
+            disabled={isFirst}
+            className={`
+              pointer-events-auto w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl
+              ${isFirst ? 'bg-gray-300 text-gray-500' : 'bg-white text-primary-600'}
+            `}
+          >
+            ←
+          </motion.button>
+        </div>
 
-        <div className="w-12" />
-
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          onClick={handleNext}
-          disabled={isLast}
-          className={`
-            w-16 h-16 rounded-full shadow-lg flex items-center justify-center text-2xl
-            ${isLast ? 'bg-gray-300 text-gray-500' : 'bg-white text-primary-600'}
-          `}
-        >
-          →
-        </motion.button>
+        <div className="absolute top-1/2 -translate-y-1/2 right-4">
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={handleNext}
+            disabled={isLast}
+            className={`
+              pointer-events-auto w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl
+              ${isLast ? 'bg-gray-300 text-gray-500' : 'bg-white text-primary-600'}
+            `}
+          >
+            →
+          </motion.button>
+        </div>
       </div>
 
       {/* 底部开始考试按钮 */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        className="absolute bottom-6 left-0 right-0 flex flex-col items-center px-4 gap-2"
+        className="absolute bottom-12 left-0 right-0 flex flex-col items-center px-4 gap-2"
       >
         <motion.button
           onClick={handleStartExam}

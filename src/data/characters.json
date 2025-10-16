@@ -135,7 +135,7 @@
           "name": "第7关",
           "characters": [
             { "id": 61, "char": "云", "pinyin": "yún", "strokes": 4, "icon": "cloud", "category": "自然" },
-            { "id": 62, "char": "天", "pinyin": "tiān", "strokes": 4, "icon": "sky", "category": "自然" },
+            { "id": 62, "char": "止", "pinyin": "zhǐ", "strokes": 4, "icon": "stop", "category": "动作" },
             { "id": 63, "char": "太", "pinyin": "tài", "strokes": 4, "icon": "too", "category": "程度" },
             { "id": 64, "char": "井", "pinyin": "jǐng", "strokes": 4, "icon": "well", "category": "建筑" },
             { "id": 65, "char": "王", "pinyin": "wáng", "strokes": 4, "icon": "king", "category": "人物" },
@@ -416,7 +416,7 @@
             { "id": 207, "char": "绿", "pinyin": "lǜ", "strokes": 11, "icon": "green", "category": "颜色" },
             { "id": 208, "char": "黑", "pinyin": "hēi", "strokes": 12, "icon": "black", "category": "颜色" },
             { "id": 209, "char": "圆", "pinyin": "yuán", "strokes": 10, "icon": "circle", "category": "形状" },
-            { "id": 210, "char": "亮", "pinyin": "liàng", "strokes": 9, "icon": "bright", "category": "形容词" }
+            { "id": 210, "char": "粉", "pinyin": "fěn", "strokes": 10, "icon": "powder", "category": "颜色" }
           ]
         },
         {

@@ -9,7 +9,6 @@ export const ExamPage = () => {
   const { currentExam, currentExamIndex, currentScore, answerQuestion } = useAppStore();
   const [showFeedback, setShowFeedback] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [comboCount, setComboCount] = useState(0);
 
   const currentQuestion = currentExam?.[currentExamIndex];
 
@@ -62,25 +61,25 @@ export const ExamPage = () => {
 
     const isCorrect = characterId === currentQuestion.correctCharacter.id;
 
-    // 播放反馈音效
+    // 播放反馈音效和语音
     setTimeout(() => {
       if (isCorrect) {
         audioManager.playSound('correct');
         
-        // 计算连击数
-        const newCombo = comboCount + 1;
-        setComboCount(newCombo);
-        
-        // 根据连击数播放不同的表扬
-        if (newCombo >= 3) {
-          audioManager.playPraise('combo');
-        } else {
-          audioManager.playPraise('basic');
-        }
+        // 延迟播放表扬语音，确保音效播放完
+        setTimeout(() => {
+          const praiseType = Math.random() > 0.5 ? 'combo' : 'basic';
+          audioManager.playPraise(praiseType);
+          console.log('🎉 触发表扬语音:', praiseType);
+        }, 300);
       } else {
         audioManager.playSound('wrong');
-        audioManager.playEncouragement();
-        setComboCount(0); // 重置连击
+        
+        // 延迟播放鼓励语音
+        setTimeout(() => {
+          audioManager.playEncouragement();
+          console.log('💪 触发鼓励语音');
+        }, 300);
       }
     }, 100);
 
@@ -100,9 +99,9 @@ export const ExamPage = () => {
   const progress = ((currentExamIndex + 1) / currentExam.length) * 100;
 
   return (
-    <div className="page-container bg-gradient-to-br from-orange-400 via-red-400 to-pink-500">
+    <div className="page-container bg-gradient-to-br from-orange-400 via-red-400 to-pink-500 flex flex-col">
       {/* 顶部信息栏 */}
-      <div className="absolute top-0 left-0 right-0 p-4">
+      <div className="absolute top-0 left-0 right-0 p-4 z-20">
         {/* 进度条 */}
         <div className="bg-white/30 rounded-full h-3 mb-4 overflow-hidden">
           <motion.div
@@ -129,39 +128,26 @@ export const ExamPage = () => {
           </div>
         </div>
 
-        {/* 连击提示 */}
-        <AnimatePresence>
-          {comboCount >= 3 && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5, y: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.5 }}
-              className="mt-2 text-center"
-            >
-              <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white font-bold px-4 py-2 rounded-full text-lg shadow-lg">
-                🔥 {comboCount} 连击！
-              </span>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
 
-      {/* 中部：播放按钮 */}
-      <div className="flex flex-col items-center justify-center mb-8 mt-32">
-        <motion.button
-          whileTap={{ scale: 0.95 }}
-          onClick={handleReplaySound}
-          className="bg-white rounded-full p-8 shadow-2xl active:shadow-lg transition-shadow"
-        >
-          <Volume2 size={64} className="text-primary-500" />
-        </motion.button>
-        <p className="text-white text-xl mt-4 drop-shadow-lg">
-          点击播放读音
-        </p>
-      </div>
+      {/* 主内容区域 - 垂直居中，减少顶部空白 */}
+      <div className="flex-1 flex flex-col items-center justify-center px-4 pt-20 pb-8">
+        {/* 播放按钮 - 放大 */}
+        <div className="flex flex-col items-center justify-center mb-8">
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            onClick={handleReplaySound}
+            className="bg-white rounded-full p-8 shadow-2xl active:shadow-lg transition-shadow"
+          >
+            <Volume2 size={56} className="text-primary-500" />
+          </motion.button>
+          <p className="text-white text-xl mt-4 drop-shadow-lg font-medium">
+            点击播放读音
+          </p>
+        </div>
 
-      {/* 选项区域 */}
-      <div className="w-full max-w-lg px-4">
+        {/* 选项区域 - 增大卡片宽度 */}
+        <div className="w-full max-w-xl px-2">
         <div className="grid grid-cols-2 gap-4">
           {currentQuestion.options.map((option, index) => {
             const emoji = emojiMap.mappings[option.char as keyof typeof emojiMap.mappings] || '📝';
@@ -180,7 +166,9 @@ export const ExamPage = () => {
                 disabled={showFeedback}
                 className={`
                   bg-white rounded-3xl p-6 shadow-xl
-                  transition-all duration-300
+                  aspect-square
+                  transition-all duration-300 relative
+                  flex flex-col items-center justify-center
                   ${showResult && isCorrect ? 'ring-4 ring-green-400 bg-green-50' : ''}
                   ${showResult && !isCorrect ? 'ring-4 ring-red-400 bg-red-50' : ''}
                   ${!showFeedback ? 'hover:shadow-2xl active:shadow-lg' : ''}
@@ -188,12 +176,19 @@ export const ExamPage = () => {
                 `}
               >
                 {/* Emoji图标 */}
-                <div className="text-5xl text-center mb-2">
-                  {emoji}
+                <div className="text-center mb-3">
+                  <span className={
+                    // 检测是否为纯文本（如"1000"），使用较小字体
+                    /^[0-9a-zA-Z]+$/.test(emoji)
+                      ? 'text-3xl font-bold'
+                      : 'text-5xl'
+                  }>
+                    {emoji}
+                  </span>
                 </div>
 
                 {/* 汉字 */}
-                <div className="hanzi-medium text-center text-gray-800">
+                <div className="text-6xl text-center text-gray-800 font-bold">
                   {option.char}
                 </div>
 
@@ -206,9 +201,9 @@ export const ExamPage = () => {
                       className="absolute inset-0 flex items-center justify-center"
                     >
                       {isCorrect ? (
-                        <div className="text-6xl celebrate">✅</div>
+                        <div className="text-7xl celebrate">✅</div>
                       ) : (
-                        <div className="text-6xl">❌</div>
+                        <div className="text-7xl">❌</div>
                       )}
                     </motion.div>
                   )}
@@ -216,6 +211,7 @@ export const ExamPage = () => {
               </motion.button>
             );
           })}
+        </div>
         </div>
       </div>
 
